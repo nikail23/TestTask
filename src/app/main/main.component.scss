@@ -1,6 +1,6 @@
 .wrapper {
   height: calc(100% - 8rem);
   display: grid;
-  grid-template-columns: 5% 95%;
+  grid-template-columns: 65px 1fr;
   grid-template-rows: auto;
 }

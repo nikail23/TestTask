@@ -1,0 +1,12 @@
+<div class="wrapper">
+  <app-menu
+    [pages]="pages"
+    (selectedPageChange)="onSelectedPageChanges($event)"
+  ></app-menu>
+  <div *ngIf="selectedPage === this.searchPageName">
+    <app-search></app-search>
+  </div>
+  <div *ngIf="selectedPage === this.bookmarksPageName">
+    <app-bookmarks></app-bookmarks>
+  </div>
+</div>
