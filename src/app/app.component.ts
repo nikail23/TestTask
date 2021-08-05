@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public readonly title = 'TestTask';
-  public readonly headerTitle = "Image Finder";
+  readonly title = 'TestTask';
+  readonly headerTitle = "Image Finder";
+  readonly footerTitle = "Copyrights";
+  readonly footerCopyrights = "Created by Yermolovich Ilya, 01.08.2021 as test task for Elinext";
 }
