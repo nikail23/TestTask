@@ -1,0 +1,10 @@
+.wrapper {
+  background-color: rgb(200, 200, 200);
+  border-right: 1px solid grey;
+  height: calc(100% - 128px);
+  position: absolute;
+
+  .pageSelect {
+    margin: auto auto;
+  }
+}

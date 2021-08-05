@@ -6,21 +6,26 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchComponent } from './search/search.component';
 import { SharedModule } from './shared/shared.module';
-import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MenuComponent } from './search/menu/menu.component';
+
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
-    BookmarksComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    MatButtonToggleModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
