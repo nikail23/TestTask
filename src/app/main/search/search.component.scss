@@ -4,14 +4,14 @@ $max-image-width: 30rem;
 $max-image-height: 30rem;
 $header-height: 4rem;
 $footer-height: 4rem;
-$padding: 2 * $offset-l;
+$padding: $offset-m;
 $search-bar-height: 70px;
 $paginator-height: 58px;
 $bookmark-gap: $offset-s;
 
 .wrapper {
-  padding: $offset-l;
-  height: calc(100vh - #{$header-height + $footer-height + $padding});
+  padding: $padding;
+  height: calc(100vh - #{$header-height + $footer-height + 2 * $padding});
 }
 
 .form {
