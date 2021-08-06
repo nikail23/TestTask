@@ -11,20 +11,10 @@ export class FlickrService {
 
   constructor(private http: HttpClient) { }
 
-  search(keyword: string) {
+  search(keyword: string, perPage: number, currPage: number) {
     const url = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&';
-    const params = `api_key=${environment.flickr.key}&text=${keyword}&format=json&nojsoncallback=1&per_page=12`;
+    const params = `api_key=${environment.flickr.key}&text=${keyword}&format=json&nojsoncallback=1&per_page=${perPage}&page=${currPage}`;
 
-    return this.http.get<FlickrOutput>(url + params).pipe(map(res => {
-      const urlArr: any[] = [];
-      res.photos.photo.forEach((ph: FlickrPhoto) => {
-        const photoObj = {
-          url: `https://farm${ph.farm}.staticflickr.com/${ph.server}/${ph.id}_${ph.secret}`,
-          title: ph.title
-        };
-        urlArr.push(photoObj);
-      });
-      return urlArr;
-    }));
+    return this.http.get<FlickrOutput>(url + params);
   }
 }

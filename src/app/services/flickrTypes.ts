@@ -8,6 +8,9 @@ export interface FlickrPhoto {
 
 export interface FlickrOutput {
   photos: {
-    photo: FlickrPhoto[]
+    photo: FlickrPhoto[],
+    pages: number,
+    perPage: number,
+    total: number
   }
 }
