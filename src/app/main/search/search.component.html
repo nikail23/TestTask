@@ -2,7 +2,7 @@
   <form class="form">
     <mat-form-field class="search-field" appearance="fill">
       <mat-label>Find images...</mat-label>
-      <input type="search" matInput placeholder="Input images name...">
+      <input type="search" matInput placeholder="Input images name..." (keyup)="search($event)">
       <span matSuffix>
         <mat-icon>search</mat-icon>
       </span>
@@ -15,8 +15,10 @@
   </mat-paginator>
   <div class="bookmarks-grid">
     <div *ngFor="let image of images" class="bookmark-item">
-      <img class="image" src="{{image.url}}">
-      <div class="name">{{image.name}}</div>
+      <a href="{{image.url}}_b.jpg">
+        <img src="{{image.url}}_m.jpg" title="{{image.title}}">
+      </a>
+      <div class="name">{{image.title}}</div>
       <button class="bookmark-button" mat-raised-button color="primary">Bookmark it!</button>
     </div>
   </div>

@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MenuComponent } from './main/menu/menu.component';
 import { FormsModule }   from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { SearchComponent } from './main/search/search.component';
 import { BookmarksComponent } from './main/bookmarks/bookmarks.component';
@@ -42,7 +43,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatPaginatorModule,
     MatGridListModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
