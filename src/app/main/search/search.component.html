@@ -1,1 +1,22 @@
-<p>search works!</p>
+<div class="wrapper">
+  <form class="form">
+    <mat-form-field class="search-field" appearance="fill">
+      <mat-label>Find images...</mat-label>
+      <input type="search" matInput placeholder="Input images name...">
+      <span matSuffix>
+        <mat-icon>search</mat-icon>
+      </span>
+    </mat-form-field>
+  </form>
+  <mat-paginator [length]="100"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page">
+  </mat-paginator>
+  <div class="bookmarks-grid">
+    <div *ngFor="let image of images" class="bookmark-item">
+      <img class="image" src="{{image.url}}">
+      <div class="name">{{image.name}}</div>
+    </div>
+  </div>
+</div>

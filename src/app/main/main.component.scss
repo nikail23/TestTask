@@ -1,6 +1,10 @@
+$header-height: 4rem;
+$footer-height: 4rem;
+$menu-width: 65px;
+
 .wrapper {
-  height: calc(100% - 8rem);
+  height: calc(100% - #{$header-height + $footer-height});
   display: grid;
-  grid-template-columns: 65px 1fr;
+  grid-template-columns: $menu-width 1fr;
   grid-template-rows: auto;
 }

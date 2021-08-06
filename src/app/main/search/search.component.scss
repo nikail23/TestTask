@@ -1,0 +1,44 @@
+@import 'vars';
+
+$max-image-width: 30rem;
+$max-image-height: 30rem;
+$header-height: 4rem;
+$footer-height: 4rem;
+$padding: 2 * $offset-l;
+$search-bar-height: 70px;
+$paginator-height: 58px;
+
+.wrapper {
+  padding: $offset-l;
+  height: calc(100vh - #{$header-height + $footer-height + $padding});
+}
+
+.form {
+  width: 100%;
+
+  .search-field {
+    width: 100%;
+  }
+}
+
+.bookmarks-grid {
+  overflow: auto;
+  box-sizing: border-box;
+  height: calc(100% - #{$search-bar-height + $paginator-height});
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: $offset-m;
+
+  .bookmark-item {
+
+    .image {
+      max-width: $max-image-width;
+      max-height: $max-image-height;
+    }
+
+    .name {
+
+    }
+  }
+}

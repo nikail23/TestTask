@@ -12,7 +12,7 @@ export class MainComponent implements OnInit {
   public readonly searchPageName = searchPageName;
   public readonly bookmarksPageName = bookmarksPageName;
 
-  public selectedPage = '';
+  public selectedPage = searchPageName;
 
   public searchPhrase = "";
 

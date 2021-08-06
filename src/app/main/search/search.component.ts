@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Image, images } from './image';
 
 @Component({
   selector: 'app-search',
@@ -11,5 +12,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  public images = images;
 
 }
