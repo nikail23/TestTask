@@ -1,29 +1,38 @@
+import { SearchState } from './state';
+import { StateService } from '../../services/state.service';
 import { FlickrPhoto } from './../../services/flickrTypes';
 import { FlickrService } from './../../services/flickr.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
 
-  constructor(private flickr: FlickrService) { }
+  public state: SearchState = {
+    keyword: '',
+    images: [],
+    total: 0,
+    perPage: 10,
+    currPage: 1,
+    isLoading: false
+  };
 
-  ngOnInit(): void {
+  constructor(private flickr: FlickrService, private main: StateService) { }
+
+  ngOnDestroy(): void {
+    this.main.searchState$.next(this.state);
   }
 
-  public keyword = '';
-  public images: any[] = [];
-  public total: number = 0;
-  public perPage: number = 10;
-  public currPage: number = 1;
-  public isLoading = false;
+  ngOnInit(): void {
+    this.state = this.main.searchState$.getValue() || {};
+  }
 
   public pageChanges(event: any) {
-    this.perPage = event.pageSize;
-    this.currPage = event.pageIndex + 1;
+    this.state.perPage = event.pageSize;
+    this.state.currPage = event.pageIndex + 1;
     this.search();
   }
 
@@ -39,28 +48,19 @@ export class SearchComponent implements OnInit {
   }
 
   public searchEvent(event: any) {
-    this.isLoading = true;
-    this.keyword = event.target.value.toLowerCase();
-    if (this.keyword && this.keyword.length > 0) {
-      this.flickr.search(this.keyword, this.perPage, this.currPage)
-      .toPromise()
-      .then(res => {
-        this.images = this.mapPhotos(res.photos.photo);
-        this.total = res.photos.total;
-        this.isLoading = false;
-      });
-    }
+    this.state.keyword = event.target.value.toLowerCase();
+    this.search();
   }
 
   public search() {
-    this.isLoading = true;
-    if (this.keyword && this.keyword.length > 0) {
-      this.flickr.search(this.keyword, this.perPage, this.currPage)
+    this.state.isLoading = true;
+    if (this.state.keyword && this.state.keyword.length > 0) {
+      this.flickr.search(this.state.keyword, this.state.perPage, this.state.currPage)
       .toPromise()
       .then(res => {
-        this.images = this.mapPhotos(res.photos.photo);
-        this.total = res.photos.total;
-        this.isLoading = false;
+        this.state.images = this.mapPhotos(res.photos.photo);
+        this.state.total = res.photos.total;
+        this.state.isLoading = false;
       });
     }
   }

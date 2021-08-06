@@ -3,10 +3,6 @@
     [pages]="pages"
     (selectedPageChange)="onSelectedPageChanges($event)"
   ></app-menu>
-  <div *ngIf="selectedPage === this.searchPageName">
-    <app-search></app-search>
-  </div>
-  <div *ngIf="selectedPage === this.bookmarksPageName">
-    <app-bookmarks></app-bookmarks>
-  </div>
+  <app-search *ngIf="selectedPage === this.searchPageName"></app-search>
+  <app-bookmarks *ngIf="selectedPage === this.bookmarksPageName"></app-bookmarks>
 </div>
