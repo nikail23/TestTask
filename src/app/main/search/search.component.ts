@@ -19,6 +19,7 @@ export class SearchComponent implements OnInit {
   public total: number = 0;
   public perPage: number = 10;
   public currPage: number = 1;
+  public isLoading = false;
 
   public pageChanges(event: any) {
     this.perPage = event.pageSize;
@@ -38,6 +39,7 @@ export class SearchComponent implements OnInit {
   }
 
   public searchEvent(event: any) {
+    this.isLoading = true;
     this.keyword = event.target.value.toLowerCase();
     if (this.keyword && this.keyword.length > 0) {
       this.flickr.search(this.keyword, this.perPage, this.currPage)
@@ -45,17 +47,20 @@ export class SearchComponent implements OnInit {
       .then(res => {
         this.images = this.mapPhotos(res.photos.photo);
         this.total = res.photos.total;
+        this.isLoading = false;
       });
     }
   }
 
   public search() {
+    this.isLoading = true;
     if (this.keyword && this.keyword.length > 0) {
       this.flickr.search(this.keyword, this.perPage, this.currPage)
       .toPromise()
       .then(res => {
         this.images = this.mapPhotos(res.photos.photo);
         this.total = res.photos.total;
+        this.isLoading = false;
       });
     }
   }
