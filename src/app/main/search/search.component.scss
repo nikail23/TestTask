@@ -7,6 +7,7 @@ $footer-height: 4rem;
 $padding: 2 * $offset-l;
 $search-bar-height: 70px;
 $paginator-height: 58px;
+$bookmark-gap: $offset-s;
 
 .wrapper {
   padding: $offset-l;
@@ -31,6 +32,10 @@ $paginator-height: 58px;
   grid-gap: $offset-m;
 
   .bookmark-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
     .image {
       max-width: $max-image-width;
@@ -38,7 +43,13 @@ $paginator-height: 58px;
     }
 
     .name {
+      margin-top: $bookmark-gap;
+      text-align: center;
+    }
 
+    .bookmark-button {
+      margin-top: $bookmark-gap;
+      width: 50%;
     }
   }
 }
