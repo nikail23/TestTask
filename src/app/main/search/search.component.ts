@@ -1,3 +1,4 @@
+import { AddBookmarkComponent } from './add-bookmark/add-bookmark.component';
 import { BookmarksService } from './../../services/bookmarks.service';
 import { SearchState } from './searchState';
 import { StateService } from '../../services/state.service';
@@ -6,6 +7,7 @@ import { FlickrService } from './../../services/flickr.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Image } from './image';
 import { Bookmark } from '../bookmarks/bookmark';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-search',
@@ -27,7 +29,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   constructor(
     private flickrService: FlickrService,
     private stateService: StateService,
-    private bookmarksService: BookmarksService
+    private bookmarksService: BookmarksService,
+    public addBookmarkDialog: MatDialog,
   ) { }
 
   ngOnDestroy(): void {
@@ -38,6 +41,27 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.state = this.stateService.getState();
     this.bookmarksService.loadBookmarks();
+  }
+
+  private bookmarkImage(id: number, tags: string): void {
+    const image: Image = this.state.images[id];
+    if (image) {
+      const bookmark: Bookmark = {
+        image: image,
+        tags: tags,
+      }
+      this.bookmarksService.addBookmark(bookmark);
+    }
+  }
+
+  public openAddBookmarkDialog(id: number) {
+    const dialogRef = this.addBookmarkDialog.open(AddBookmarkComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.state) {
+        this.bookmarkImage(id, result.tags);
+      }
+    });
   }
 
   public pageChanges(event: any): void {
@@ -94,17 +118,6 @@ export class SearchComponent implements OnInit, OnDestroy {
       });
     } else {
       this.clearState(this.state);
-    }
-  }
-
-  public bookmarkImage(id: number): void {
-    const image: Image = this.state.images[id];
-    if (image) {
-      const bookmark: Bookmark = {
-        image: image,
-        tags: 'some tags',
-      }
-      this.bookmarksService.addBookmark(bookmark);
     }
   }
 }

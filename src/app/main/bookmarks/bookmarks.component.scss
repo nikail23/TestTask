@@ -12,6 +12,14 @@ $bookmark-gap: $offset-s;
   height: calc(100vh - #{$header-height + $footer-height + 2 * $padding});
 }
 
+.empty-bookmarks {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .bookmarks-grid {
   overflow: auto;
   box-sizing: border-box;

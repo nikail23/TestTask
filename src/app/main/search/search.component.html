@@ -20,7 +20,7 @@
         <img src="{{image.url}}_m.jpg" title="{{image.title}}">
       </a>
       <div class="name">{{image.title}}</div>
-      <button class="bookmark-button" mat-raised-button color="primary" (click)="bookmarkImage(id)">Bookmark it!</button>
+      <button class="bookmark-button" mat-raised-button color="primary" (click)="openAddBookmarkDialog(id)">Bookmark it!</button>
     </div>
   </div>
   <div *ngIf="state.isLoading" class="spinner">

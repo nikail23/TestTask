@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Add new bookmark</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Here you can add some tags</h3>
+  <p>Just skip this input, if you dont need any tags in this bookmark!</p>
+  <form class="form">
+    <mat-form-field class="tags-field" appearance="fill">
+      <mat-label>Adding tags...</mat-label>
+      <input matInput [(ngModel)]="tags" name="tags" placeholder="Input tags here...">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="{state: false}">Cancel</button>
+  <button mat-button [mat-dialog-close]="{state: true, tags: tags}" cdkFocusInitial>Add bookmark</button>
+</mat-dialog-actions>

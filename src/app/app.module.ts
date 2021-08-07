@@ -22,6 +22,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AddBookmarkComponent } from './main/search/add-bookmark/add-bookmark.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     PageNotFoundComponent,
     MenuComponent,
     SearchComponent,
-    BookmarksComponent
+    BookmarksComponent,
+    AddBookmarkComponent
   ],
   imports: [
     FormsModule,
@@ -46,6 +49,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatGridListModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     HttpClientModule
   ],
   providers: [],
