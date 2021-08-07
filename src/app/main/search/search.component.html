@@ -15,12 +15,12 @@
     aria-label="Select page">
   </mat-paginator>
   <div *ngIf="!state.isLoading && !state.isEmpty" class="bookmarks-grid">
-    <div *ngFor="let image of state.images" class="bookmark-item">
+    <div *ngFor="let image of state.images; let id = index" class="bookmark-item">
       <a href="{{image.url}}_b.jpg">
         <img src="{{image.url}}_m.jpg" title="{{image.title}}">
       </a>
       <div class="name">{{image.title}}</div>
-      <button class="bookmark-button" mat-raised-button color="primary">Bookmark it!</button>
+      <button class="bookmark-button" mat-raised-button color="primary" (click)="bookmarkImage(id)">Bookmark it!</button>
     </div>
   </div>
   <div *ngIf="state.isLoading" class="spinner">

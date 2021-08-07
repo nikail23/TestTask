@@ -1,1 +1,20 @@
-<p>bookmarks works!</p>
+<div class="wrapper">
+  <div *ngIf="!isEmpty" class="bookmarks-grid">
+    <div *ngFor="let image of bookmarks; let id = index" class="bookmark-item">
+      <a href="{{image.url}}_b.jpg">
+        <img src="{{image.url}}_m.jpg" title="{{image.title}}">
+      </a>
+      <div class="name">{{image.title}}</div>
+      <button class="delete-button" mat-raised-button color="primary" (click)="deleteBookmark(id)">Delete it!</button>
+    </div>
+  </div>
+  <div *ngIf="isEmpty" class="empty-search-result">
+    <h1>
+      No bookmarks here.
+    </h1>
+    <p>
+      Would you try to add some bookmarks?
+    </p>
+  </div>
+</div>
+

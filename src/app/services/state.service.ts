@@ -1,4 +1,4 @@
-import { SearchState } from '../main/search/state';
+import { SearchState } from '../main/search/searchState';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 

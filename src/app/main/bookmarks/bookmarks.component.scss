@@ -1,0 +1,45 @@
+@import 'vars';
+
+$max-image-width: 30rem;
+$max-image-height: 30rem;
+$header-height: 4rem;
+$footer-height: 4rem;
+$padding: $offset-m;
+$bookmark-gap: $offset-s;
+
+.wrapper {
+  padding: $padding;
+  height: calc(100vh - #{$header-height + $footer-height + 2 * $padding});
+}
+
+.bookmarks-grid {
+  overflow: auto;
+  box-sizing: border-box;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: $offset-m;
+
+  .bookmark-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .image {
+      max-width: $max-image-width;
+      max-height: $max-image-height;
+    }
+
+    .name {
+      margin-top: $bookmark-gap;
+      text-align: center;
+    }
+
+    .delete-button {
+      margin-top: $bookmark-gap;
+      width: 50%;
+    }
+  }
+}
