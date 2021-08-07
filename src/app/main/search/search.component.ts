@@ -50,7 +50,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private clearState() {
     this.state = {
-      keyword: '',
+      keyword: this.state.keyword,
       images: [],
       total: 0,
       perPage: 10,
@@ -75,6 +75,9 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.state.images = this.mapPhotos(res.photos.photo);
         this.state.total = res.photos.total;
         this.state.isLoading = false;
+        if (this.state.images.length === 0) {
+          this.clearState();
+        }
       });
     } else {
       this.clearState();
