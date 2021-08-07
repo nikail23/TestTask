@@ -28,7 +28,7 @@ describe('BookmarksService', () => {
     expect(service.getBookmarks()[0]).toEqual(bookmark);
   });
 
-  it('should save correctly', () => {
+  it('should save bookmarks correctly', () => {
     const bookmark: Bookmark = {
       image: {
         url: 'test',
@@ -43,7 +43,7 @@ describe('BookmarksService', () => {
     expect(service.getBookmarks()).toEqual(localStorageBookmarks);
   })
 
-  it('should load correctly', () => {
+  it('should load bookmarks correctly', () => {
     const bookmark: Bookmark = {
       image: {
         url: 'test',
@@ -59,7 +59,7 @@ describe('BookmarksService', () => {
     expect(service.getBookmarks()).toEqual(localStorageBookmarks);
   })
 
-  it('should delete correctly', () => {
+  it('should delete bookmark correctly', () => {
     const bookmark: Bookmark = {
       image: {
         url: 'test',
@@ -82,5 +82,42 @@ describe('BookmarksService', () => {
     service.saveBookmarks();
     service.loadBookmarks();
     expect(service.getBookmarks()[1]).toBeUndefined();
+  });
+
+  it('should call delete function many times correctly', () => {
+    service.deleteBookmark(0);
+    service.deleteBookmark(0);
+    service.deleteBookmark(0);
+    service.deleteBookmark(0);
+    service.deleteBookmark(0);
+    service.deleteBookmark(0);
+    expect(service.getBookmarks().length === 0).toBeTrue();
+  });
+
+  it('should call load function many times correctly', () => {
+    const bookmark: Bookmark = {
+      image: {
+        url: 'test',
+        title: 'test'
+      },
+      tags: 'test'
+    };
+    const bookmark2: Bookmark = {
+      image: {
+        url: 'test2',
+        title: 'test2'
+      },
+      tags: 'test2'
+    };
+    service.addBookmark(bookmark);
+    service.addBookmark(bookmark2);
+    service.saveBookmarks();
+    service.loadBookmarks();
+    service.loadBookmarks();
+    service.loadBookmarks();
+    service.loadBookmarks();
+    service.loadBookmarks();
+    service.loadBookmarks();
+    expect(service.getBookmarks().length === 2).toBeTrue();
   });
 });
