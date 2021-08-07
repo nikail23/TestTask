@@ -29,6 +29,14 @@ $bookmark-gap: $offset-s;
   align-items: center;
 }
 
+.empty-search-result {
+  height: calc(100% - #{$search-bar-height + $paginator-height});
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .bookmarks-grid {
   overflow: auto;
   box-sizing: border-box;

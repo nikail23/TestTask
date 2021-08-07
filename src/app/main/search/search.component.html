@@ -14,7 +14,7 @@
     (page)="pageChanges($event)"
     aria-label="Select page">
   </mat-paginator>
-  <div *ngIf="!state.isLoading" class="bookmarks-grid">
+  <div *ngIf="!state.isLoading && !state.isEmpty" class="bookmarks-grid">
     <div *ngFor="let image of state.images" class="bookmark-item">
       <a href="{{image.url}}_b.jpg">
         <img src="{{image.url}}_m.jpg" title="{{image.title}}">
@@ -25,5 +25,13 @@
   </div>
   <div *ngIf="state.isLoading" class="spinner">
     <mat-spinner></mat-spinner>
+  </div>
+  <div *ngIf="state.isEmpty" class="empty-search-result">
+    <h1>
+      Search results are empty...
+    </h1>
+    <p>
+      ...check the search input keyword!
+    </p>
   </div>
 </div>

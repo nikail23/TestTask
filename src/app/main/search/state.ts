@@ -5,4 +5,5 @@ export interface SearchState {
   perPage: number;
   currPage: number;
   isLoading: boolean;
+  isEmpty: boolean;
 }

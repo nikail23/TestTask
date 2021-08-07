@@ -17,7 +17,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     total: 0,
     perPage: 10,
     currPage: 1,
-    isLoading: false
+    isLoading: false,
+    isEmpty: true
   };
 
   constructor(private flickr: FlickrService, private main: StateService) { }
@@ -38,13 +39,25 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private mapPhotos(photos: FlickrPhoto[]) {
     const mappedPhotos = photos.map(photo => {
-      const photoObj = {
+      const mappedPhoto = {
         url: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}`,
         title: photo.title
       };
-      return photoObj;
+      return mappedPhoto;
     });
     return mappedPhotos;
+  }
+
+  private clearState() {
+    this.state = {
+      keyword: '',
+      images: [],
+      total: 0,
+      perPage: 10,
+      currPage: 1,
+      isLoading: false,
+      isEmpty: true
+    }
   }
 
   public searchEvent(event: any) {
@@ -54,6 +67,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   public search() {
     this.state.isLoading = true;
+    this.state.isEmpty = false;
     if (this.state.keyword && this.state.keyword.length > 0) {
       this.flickr.search(this.state.keyword, this.state.perPage, this.state.currPage)
       .toPromise()
@@ -62,6 +76,8 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.state.total = res.photos.total;
         this.state.isLoading = false;
       });
+    } else {
+      this.clearState();
     }
   }
 }

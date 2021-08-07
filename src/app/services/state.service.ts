@@ -15,6 +15,7 @@ export class StateService {
     total: 0,
     currPage: 1,
     perPage: 10,
-    isLoading: false
+    isLoading: false,
+    isEmpty: true
   });
 }
