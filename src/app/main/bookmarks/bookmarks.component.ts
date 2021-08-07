@@ -21,14 +21,21 @@ export class BookmarksComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.bookmarksService.loadBookmarks();
-    this.bookmarks = this.bookmarksService.getBookmarks();
+    this.refreshBookmarks();
     if (this.bookmarks.length === 0) {
       this.isEmpty = true;
     }
   }
 
-  public deleteBookmark(id: number): void {
-    this.bookmarksService.deleteBookmark(id);
+  private refreshBookmarks() {
+    this.bookmarks = this.bookmarksService.getBookmarks();
   }
 
+  public deleteBookmark(id: number): void {
+    this.bookmarksService.deleteBookmark(id);
+    this.refreshBookmarks();
+    if (this.bookmarks.length === 0) {
+      this.isEmpty = true;
+    }
+  }
 }

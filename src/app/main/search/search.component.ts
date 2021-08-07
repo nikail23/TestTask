@@ -81,8 +81,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     return mappedImages;
   }
 
-  private clearState(state: SearchState): void {
-    state = {
+  private clearState(): void {
+    this.state = {
       keyword: this.state.keyword,
       images: [],
       total: 0,
@@ -93,10 +93,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  private fillState(state: SearchState, result: FlickrOutput): void {
-    state.images = this.mapPhotos(result.photos.photo);
-    state.total = result.photos.total;
-    state.isLoading = false;
+  private fillState(result: FlickrOutput): void {
+    this.state.images = this.mapPhotos(result.photos.photo);
+    this.state.total = result.photos.total;
+    this.state.isLoading = false;
   }
 
   public searchEvent(event: any): void {
@@ -111,13 +111,13 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.flickrService.search(this.state.keyword, this.state.perPage, this.state.currPage)
       .toPromise()
       .then(result => {
-        this.fillState(this.state, result);
+        this.fillState(result);
         if (this.state.images.length === 0) {
-          this.clearState(this.state);
+          this.clearState();
         }
       });
     } else {
-      this.clearState(this.state);
+      this.clearState();
     }
   }
 }
