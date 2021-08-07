@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+- '10'
+
+before_install:
+- npm install -g @angular/cli
+install: npm install
+
+branches:
+  only:
+  - master
+
+
+deploy:
+  provider: heroku
+  app: imagesfinder
+  api_key:
+    secure: "f976d141-1f1d-431f-8907-588091cfe879"
