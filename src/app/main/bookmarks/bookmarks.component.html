@@ -1,10 +1,11 @@
 <div class="wrapper">
   <div *ngIf="!isEmpty" class="bookmarks-grid">
-    <div *ngFor="let image of bookmarks; let id = index" class="bookmark-item">
-      <a href="{{image.url}}_b.jpg">
-        <img src="{{image.url}}_m.jpg" title="{{image.title}}">
+    <div *ngFor="let bookmark of bookmarks; let id = index" class="bookmark-item">
+      <a href="{{bookmark.image.url}}_b.jpg">
+        <img src="{{bookmark.image.url}}_m.jpg" title="{{bookmark.image.title}}">
       </a>
-      <div class="name">{{image.title}}</div>
+      <div class="name"> Title: {{bookmark.image.title}}</div>
+      <div class="tags"> Tags: {{bookmark.tags}}</div>
       <button class="delete-button" mat-raised-button color="primary" (click)="deleteBookmark(id)">Delete it!</button>
     </div>
   </div>

@@ -1,9 +1,11 @@
 import { BookmarksService } from './../../services/bookmarks.service';
 import { SearchState } from './searchState';
 import { StateService } from '../../services/state.service';
-import { FlickrPhoto } from './../../services/flickrTypes';
+import { FlickrPhoto, FlickrOutput } from './../../services/flickrTypes';
 import { FlickrService } from './../../services/flickr.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Image } from './image';
+import { Bookmark } from '../bookmarks/bookmark';
 
 @Component({
   selector: 'app-search',
@@ -22,37 +24,41 @@ export class SearchComponent implements OnInit, OnDestroy {
     isEmpty: true
   };
 
-  constructor(private flickrService: FlickrService, private stateService: StateService, private bookmarksService: BookmarksService) { }
+  constructor(
+    private flickrService: FlickrService,
+    private stateService: StateService,
+    private bookmarksService: BookmarksService
+  ) { }
 
   ngOnDestroy(): void {
-    this.stateService.searchState$.next(this.state);
+    this.stateService.saveState(this.state);
     this.bookmarksService.saveBookmarks();
   }
 
   ngOnInit(): void {
-    this.state = this.stateService.searchState$.getValue() || {};
+    this.state = this.stateService.getState();
     this.bookmarksService.loadBookmarks();
   }
 
-  public pageChanges(event: any) {
+  public pageChanges(event: any): void {
     this.state.perPage = event.pageSize;
     this.state.currPage = event.pageIndex + 1;
     this.search();
   }
 
-  private mapPhotos(photos: FlickrPhoto[]) {
-    const mappedPhotos = photos.map(photo => {
-      const mappedPhoto = {
+  private mapPhotos(photos: FlickrPhoto[]): Image[] {
+    const mappedImages = photos.map(photo => {
+      const mappedImage: Image = {
         url: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}`,
         title: photo.title
       };
-      return mappedPhoto;
+      return mappedImage;
     });
-    return mappedPhotos;
+    return mappedImages;
   }
 
-  private clearState() {
-    this.state = {
+  private clearState(state: SearchState): void {
+    state = {
       keyword: this.state.keyword,
       images: [],
       total: 0,
@@ -63,34 +69,42 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  public searchEvent(event: any) {
+  private fillState(state: SearchState, result: FlickrOutput): void {
+    state.images = this.mapPhotos(result.photos.photo);
+    state.total = result.photos.total;
+    state.isLoading = false;
+  }
+
+  public searchEvent(event: any): void {
     this.state.keyword = event.target.value.toLowerCase();
     this.search();
   }
 
-  public search() {
+  public search(): void {
     this.state.isLoading = true;
     this.state.isEmpty = false;
     if (this.state.keyword && this.state.keyword.length > 0) {
       this.flickrService.search(this.state.keyword, this.state.perPage, this.state.currPage)
       .toPromise()
-      .then(res => {
-        this.state.images = this.mapPhotos(res.photos.photo);
-        this.state.total = res.photos.total;
-        this.state.isLoading = false;
+      .then(result => {
+        this.fillState(this.state, result);
         if (this.state.images.length === 0) {
-          this.clearState();
+          this.clearState(this.state);
         }
       });
     } else {
-      this.clearState();
+      this.clearState(this.state);
     }
   }
 
-  public bookmarkImage(id: number) {
-    const image = this.state.images[id];
+  public bookmarkImage(id: number): void {
+    const image: Image = this.state.images[id];
     if (image) {
-      this.bookmarksService.addBookmark(image);
+      const bookmark: Bookmark = {
+        image: image,
+        tags: 'some tags',
+      }
+      this.bookmarksService.addBookmark(bookmark);
     }
   }
 }

@@ -1,3 +1,4 @@
+import { Bookmark } from './../main/bookmarks/bookmark';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,15 +6,15 @@ import { Injectable } from '@angular/core';
 })
 export class BookmarksService {
 
-  private bookmarks: any[] = [];
+  private bookmarks: Bookmark[] = [];
 
   constructor() { }
 
-  public saveBookmarks() {
+  public saveBookmarks(): void {
     localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
   }
 
-  public loadBookmarks() {
+  public loadBookmarks(): void {
     const jsonBookmarks = localStorage.getItem('bookmarks');
     if (jsonBookmarks && jsonBookmarks.length > 0) {
       this.bookmarks = JSON.parse(jsonBookmarks);
@@ -22,15 +23,15 @@ export class BookmarksService {
     }
   }
 
-  public getBookmarks() {
+  public getBookmarks(): Bookmark[] {
     return this.bookmarks;
   }
 
-  public addBookmark(bookmark: any) {
+  public addBookmark(bookmark: Bookmark): void {
     this.bookmarks.push(bookmark);
   }
 
-  public deleteBookmark(id: number) {
+  public deleteBookmark(id: number): void {
     this.bookmarks.splice(id, 1);
   }
 }

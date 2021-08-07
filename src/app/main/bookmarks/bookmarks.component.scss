@@ -37,6 +37,11 @@ $bookmark-gap: $offset-s;
       text-align: center;
     }
 
+    .tags {
+      margin-top: $bookmark-gap;
+      text-align: center;
+    }
+
     .delete-button {
       margin-top: $bookmark-gap;
       width: 50%;

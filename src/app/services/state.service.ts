@@ -1,4 +1,4 @@
-import { SearchState } from '../main/search/searchState';
+import { SearchState } from './../main/search/searchState';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -9,7 +9,7 @@ export class StateService {
 
   constructor() { }
 
-  public searchState$ = new BehaviorSubject<SearchState>({
+  public state$ = new BehaviorSubject<SearchState>({
     keyword: '',
     images: [],
     total: 0,
@@ -18,4 +18,12 @@ export class StateService {
     isLoading: false,
     isEmpty: true
   });
+
+  public saveState(newState: SearchState) {
+    this.state$.next(newState);
+  }
+
+  public getState(): SearchState {
+    return this.state$.getValue();
+  }
 }
